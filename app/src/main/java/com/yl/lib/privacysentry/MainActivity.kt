@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.yl.lib.privacy_test.PrivacyProxySelfTest2
 import com.yl.lib.privacy_test.TestMethod
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             TestMethodInJava.getAndroidId(this)
             TestMethodInJava.getAndroidIdSystem(this)
             PrivacyLog.i("androidId is $androidId")
-
+            Toast.makeText(this,androidId,Toast.LENGTH_LONG).show()
             Thread{
                 TestInJava.testHttpUrlConnection()
             }.start()

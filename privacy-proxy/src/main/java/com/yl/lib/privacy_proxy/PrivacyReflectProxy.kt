@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter
 import android.net.wifi.WifiInfo
 import android.telephony.TelephonyManager
 import androidx.annotation.Keep
+import com.bun.miitmdid.provider.DefaultProvider
 import com.yl.lib.privacy_annotation.MethodInvokeOpcode
 import com.yl.lib.privacy_annotation.PrivacyClassProxy
 import com.yl.lib.privacy_annotation.PrivacyMethodProxy
@@ -37,6 +38,12 @@ open class PrivacyReflectProxy {
             if (obj is WifiInfo) {
                 if ("getMacAddress" == method.name) {
                     if (args.isEmpty()) return PrivacyProxyCall.Proxy.getMacAddress(obj)
+                }
+            }
+
+            if(obj is DefaultProvider) {
+                if ("getOAID" == method.name && args.isEmpty()) {
+                    return PrivacyOtherSdkProxy.OtherSdkProxy.getOAID(obj)
                 }
             }
 

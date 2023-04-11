@@ -49,6 +49,12 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.3.2'
@@ -56,19 +62,28 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     implementation "androidx.multidex:multidex:2.0.1"
+    api(name: 'oaid_sdk_1.0.25', ext: 'aar')
     if (rootProject.ext.plugin_local_debug) {
         implementation project(":hook-sentry")
         implementation project(":privacy-proxy")
         implementation project(":privacy-replace")
         implementation project(":privacy-annotation")
     } else {
-        def privacyVersion = "1.2.8"
-        implementation "com.github.allenymt.PrivacySentry:hook-sentry:$privacyVersion"
-        implementation "com.github.allenymt.PrivacySentry:privacy-annotation:$privacyVersion"
-        //  测试自定义拦截就注释掉
-        implementation "com.github.allenymt.PrivacySentry:privacy-proxy:$privacyVersion"
-        // 新增类替换，主要是为了hook构造函数的参数
-        implementation "com.github.allenymt.PrivacySentry:privacy-replace:$privacyVersion"
+//        def privacyVersion = "1.2.8"
+//        implementation "com.github.allenymt.PrivacySentry:hook-sentry:$privacyVersion"
+//        implementation "com.github.allenymt.PrivacySentry:privacy-annotation:$privacyVersion"
+//        //  测试自定义拦截就注释掉
+//        implementation "com.github.allenymt.PrivacySentry:privacy-proxy:$privacyVersion"
+//        // 新增类替换，主要是为了hook构造函数的参数
+//        implementation "com.github.allenymt.PrivacySentry:privacy-replace:$privacyVersion"
+        def privacyVersion = "1.1.9"
+        implementation "com.github.Yuphee.PrivacySentry:hook-sentry:$privacyVersion"
+        implementation "com.github.Yuphee.PrivacySentry:privacy-annotation:$privacyVersion"
+        //如果不想使用库中本身的代理方法，可以不引入这个aar，自己实现
+        //也可以引入，个别方法在自己的类中重写即可
+        implementation "com.github.Yuphee.PrivacySentry:privacy-proxy:$privacyVersion"
+//        // 1.2.3 新增类替换，主要是为了hook构造函数的参数
+//        implementation "com.github.Yuphee.PrivacySentry:privacy-replace:$privacyVersion"
     }
     implementation(project(path: ':privacy-test')) {
         exclude module: 'privacy-annotation'
