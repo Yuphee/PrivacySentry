@@ -238,7 +238,7 @@ class MainActivity : AppCompatActivity() {
             requestPermissions(permissions, 1000)
         }
 
-
+        PrivacySentry.Privacy.initTransform(application)
     }
 
 

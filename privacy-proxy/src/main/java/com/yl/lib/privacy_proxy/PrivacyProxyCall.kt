@@ -391,12 +391,13 @@ open class PrivacyProxyCall {
             originalOpcode = MethodInvokeOpcode.INVOKEVIRTUAL
         )
         @JvmStatic
-        fun setPrimaryClip(manager: ClipboardManager, clip: ClipData) {
+        fun setPrimaryClip(manager: ClipboardManager, clip: ClipData?) {
             doFilePrinter("setPrimaryClip", "设置剪贴板内容-setPrimaryClip")
             if (PrivacySentry.Privacy.inDangerousState()) {
                 return
             }
-            manager.setPrimaryClip(clip)
+            clip?.let { manager.setPrimaryClip(it) }
+
         }
 
         @PrivacyMethodProxy(
@@ -405,7 +406,7 @@ open class PrivacyProxyCall {
             originalOpcode = MethodInvokeOpcode.INVOKEVIRTUAL
         )
         @JvmStatic
-        fun setText(manager: ClipboardManager, clip: CharSequence) {
+        fun setText(manager: ClipboardManager, clip: CharSequence?) {
             doFilePrinter("setText", "设置剪贴板内容-setText")
             if (PrivacySentry.Privacy.inDangerousState()) {
                 return
@@ -677,10 +678,10 @@ open class PrivacyProxyCall {
         fun getAddress(manager: Inet4Address): ByteArray? {
             var key = "ip地址-getAddress"
 
-            if (PrivacySentry.Privacy.inDangerousState()) {
-                doFilePrinter(key, "ip地址-getAddress", bVisitorModel = true)
-                return ByteArray(1)
-            }
+//            if (PrivacySentry.Privacy.inDangerousState()) {
+//                doFilePrinter(key, "ip地址-getAddress", bVisitorModel = true)
+//                return ByteArray(1)
+//            }
             var address = manager.address
             doFilePrinter(
                 key,
@@ -698,10 +699,10 @@ open class PrivacyProxyCall {
         fun getAddress(manager: InetAddress): ByteArray? {
             var key = "ip地址-getAddress"
 
-            if (PrivacySentry.Privacy.inDangerousState()) {
-                doFilePrinter(key, "ip地址-getAddress", bVisitorModel = true)
-                return ByteArray(1)
-            }
+//            if (PrivacySentry.Privacy.inDangerousState()) {
+//                doFilePrinter(key, "ip地址-getAddress", bVisitorModel = true)
+//                return ByteArray(1)
+//            }
             var address = manager.address
             doFilePrinter(
                 key,
@@ -719,10 +720,10 @@ open class PrivacyProxyCall {
         fun getHostAddress(manager: Inet4Address): String? {
             var key = "ip地址-getHostAddress"
 
-            if (PrivacySentry.Privacy.inDangerousState()) {
-                doFilePrinter(key, "ip地址-getHostAddress", bVisitorModel = true)
-                return ""
-            }
+//            if (PrivacySentry.Privacy.inDangerousState()) {
+//                doFilePrinter(key, "ip地址-getHostAddress", bVisitorModel = true)
+//                return ""
+//            }
 
             var address = manager.hostAddress
             doFilePrinter(
@@ -741,10 +742,10 @@ open class PrivacyProxyCall {
         fun getHostAddress(manager: InetAddress): String? {
             var key = "ip地址-getHostAddress"
 
-            if (PrivacySentry.Privacy.inDangerousState()) {
-                doFilePrinter(key, "ip地址-getHostAddress", bVisitorModel = true)
-                return ""
-            }
+//            if (PrivacySentry.Privacy.inDangerousState()) {
+//                doFilePrinter(key, "ip地址-getHostAddress", bVisitorModel = true)
+//                return ""
+//            }
 
             var address = manager.hostAddress
             doFilePrinter(

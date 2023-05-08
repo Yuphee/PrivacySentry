@@ -2,11 +2,9 @@ package com.yl.lib.privacysentry
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
+import android.os.Build
 import androidx.multidex.MultiDex
-import com.bun.miitmdid.core.MdidSdkHelper
-import com.bun.miitmdid.interfaces.IIdentifierListener
-import com.bun.miitmdid.interfaces.IdSupplier
+import com.yl.lib.privacysentry.test.PrivacyMethod
 import com.yl.lib.sentry.hook.PrivacyResultCallBack
 import com.yl.lib.sentry.hook.PrivacySentry
 import com.yl.lib.sentry.hook.PrivacySentryBuilder
@@ -28,7 +26,8 @@ class APP : Application() {
         // 所以如果是在attachBaseContext中，且隐私合规SDK未初始化，不管是不是首次启动，都会认为是危险期，无法调用敏感api
 //        PrivacyMethod.PrivacyMethod.getAndroidId(base!!)
         MultiDex.install(this)
-        Thread { initPrivacyTransformComplete() }.start()
+//        Thread { initPrivacyTransformComplete() }.start()
+
     }
 
     private fun initPrivacyTransform() {
@@ -58,15 +57,6 @@ class APP : Application() {
         PrivacySentry.Privacy.init(this, builder)
         // 简易版配置
 //        PrivacySentry.Privacy.init(this)
-        MdidSdkHelper.InitSdk(this, true,
-            IIdentifierListener { b: Boolean, idSupplier: IdSupplier? ->
-                Thread {
-                    if (idSupplier != null) {
-                        val oaid: String = idSupplier.getOAID()
-                        Log.d("oaid","oaid:$oaid")
-                    }
-                }.start()
-            })
     }
 
     fun testJustSerial() {
